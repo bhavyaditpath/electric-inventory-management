@@ -22,7 +22,7 @@ export const login = async (req: Request, res: Response) => {
 };
 
 export const register = async (req: Request, res: Response) => {
-  const { name, email, password, role, branchId } = req.body;
+  const { name, email, password, role, branchName } = req.body;
 
   const exists = await User.findOne({ email });
   if (exists) return res.status(400).json({ message: "Email already exists" });
@@ -34,7 +34,7 @@ export const register = async (req: Request, res: Response) => {
     email,
     password: hashed,
     role,
-    branchId,
+    branchName: branchName || null,
   });
 
   res.json({
