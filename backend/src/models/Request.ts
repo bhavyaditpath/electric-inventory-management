@@ -12,6 +12,6 @@ const RequestSchema = new Schema<IRequest>({
   itemId: { type: Schema.Types.ObjectId, ref: "Item" },
   quantity: Number,
   status: { type: String, enum: ["pending", "approved", "declined"], default: "pending" }
-});
+}, { timestamps: true });
 
 export default mongoose.model("Request", RequestSchema);

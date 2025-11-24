@@ -9,7 +9,7 @@ export interface CreateRequestPayload {
 
 // POST /api/requests  (branch)
 export const createRequest = (payload: CreateRequestPayload, token: string) =>
-  apiClient.post<{ message: string; request: StockRequest }>(
+  apiClient.post(
     "/requests",
     payload,
     { token }
@@ -17,15 +17,15 @@ export const createRequest = (payload: CreateRequestPayload, token: string) =>
 
 // GET /api/requests/my  (branch)
 export const getMyRequests = (token: string) =>
-  apiClient.get<StockRequest[]>("/requests/my", { token });
+  apiClient.get("/requests/my", { token });
 
 // GET /api/requests  (admin)
 export const getAllRequests = (token: string) =>
-  apiClient.get<StockRequest[]>("/requests", { token });
+  apiClient.get("/requests", { token });
 
 // PUT /api/requests/approve/:id  (admin)
 export const approveRequest = (requestId: string, token: string) =>
-  apiClient.put<{ message: string; request: StockRequest }>(
+  apiClient.put(
     `/requests/approve/${requestId}`,
     {},
     { token }
@@ -33,7 +33,7 @@ export const approveRequest = (requestId: string, token: string) =>
 
 // PUT /api/requests/decline/:id (admin)
 export const declineRequest = (requestId: string, token: string) =>
-  apiClient.put<{ message: string; request: StockRequest }>(
+  apiClient.put(
     `/requests/decline/${requestId}`,
     {},
     { token }

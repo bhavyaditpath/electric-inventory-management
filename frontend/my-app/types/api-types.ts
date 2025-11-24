@@ -25,6 +25,12 @@ export interface Item {
   price: number;
 }
 
+export interface Branch {
+  _id: string;
+  name: string;
+  location: string;
+}
+
 export interface SalesItem {
   itemId: string | Item;
   quantity: number;
@@ -49,8 +55,9 @@ export type RequestStatus = "pending" | "approved" | "declined";
 
 export interface StockRequest {
   _id: string;
-  branchId: string;
-  itemId: string | Item;
+  branchId: Branch;
+  itemId: Item;
   quantity: number;
   status: RequestStatus;
+  createdAt: string;
 }
