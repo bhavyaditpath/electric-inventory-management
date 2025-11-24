@@ -38,17 +38,18 @@ export interface SalesItem {
 
 export interface Sale {
   _id: string;
-  branchId: string;
-  itemsSold: SalesItem[];
+  branchId: Branch;
+  itemsSold: { itemId: Item; quantity: number }[];
   totalAmount: number;
   date: string;
 }
 
 export interface Purchase {
   _id: string;
-  itemId: string | Item;
+  itemId: Item;
   quantity: number;
   cost: number;
+  createdAt: string;
 }
 
 export type RequestStatus = "pending" | "approved" | "declined";

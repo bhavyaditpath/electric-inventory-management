@@ -10,7 +10,7 @@ export interface RecordSalePayload {
 
 // POST /api/sales
 export const recordSale = (payload: RecordSalePayload, token: string) =>
-  apiClient.post<{ message: string; sale: Sale }>(
+  apiClient.post(
     "/sales",
     payload,
     { token }
@@ -18,8 +18,8 @@ export const recordSale = (payload: RecordSalePayload, token: string) =>
 
 // GET /api/sales/branch/:branchId
 export const getSalesByBranch = (branchId: string, token: string) =>
-  apiClient.get<Sale[]>(`/sales/branch/${branchId}`, { token });
+  apiClient.get(`/sales/branch/${branchId}`, { token });
 
 // GET /api/sales (admin)
 export const getAllSales = (token: string) =>
-  apiClient.get<Sale[]>("/sales", { token });
+  apiClient.get("/sales", { token });

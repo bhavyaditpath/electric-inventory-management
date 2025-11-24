@@ -10,6 +10,6 @@ const PurchaseSchema = new Schema<IPurchase>({
   itemId: { type: Schema.Types.ObjectId, ref: "Item" },
   quantity: Number,
   cost: Number
-});
+}, { timestamps: true });
 
 export default mongoose.model("Purchase", PurchaseSchema);

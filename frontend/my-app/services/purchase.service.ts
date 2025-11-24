@@ -13,7 +13,7 @@ export const recordPurchase = (
   payload: RecordPurchasePayload,
   token: string
 ) =>
-  apiClient.post<{ message: string; purchase: Purchase }>(
+  apiClient.post(
     "/purchases",
     payload,
     { token }
@@ -21,4 +21,4 @@ export const recordPurchase = (
 
 // GET /api/purchases  (admin)
 export const getPurchases = (token: string) =>
-  apiClient.get<Purchase[]>("/purchases", { token });
+  apiClient.get("/purchases", { token });
