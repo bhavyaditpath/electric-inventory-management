@@ -5,6 +5,7 @@ import Modal from "@/components/Modal";
 import { useState } from "react";
 import { registerUser } from "@/services/auth.service";
 import { useAuthStore } from "@/store/authStore";
+import { showSuccess, showError } from "@/services/toast";
 
 export default function NewUser({ open, onClose, onSuccess }: any) {
     const token = useAuthStore((s) => s.token);
@@ -27,11 +28,11 @@ export default function NewUser({ open, onClose, onSuccess }: any) {
                 token!
             );
 
-            alert("User Created Successfully!");
+            showSuccess("User Created Successfully!");
             onSuccess();
             onClose();
         } catch (err: any) {
-            alert("Error: " + err.message);
+            showError(err.message);
         }
     };
 

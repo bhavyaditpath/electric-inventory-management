@@ -6,6 +6,7 @@ export interface IUser extends Document {
   password: string;
   role: "admin" | "branch";
   branchName?: string;
+  isDeleted: boolean;
 }
 
 const UserSchema = new Schema<IUser>({
@@ -13,7 +14,8 @@ const UserSchema = new Schema<IUser>({
   email: { type: String, unique: true },
   password: String,
   role: { type: String, enum: ["admin", "branch"], default: "branch" },
-  branchName: { type: String, default: null }  // <-- NEW
+  branchName: { type: String, default: null },
+  isDeleted: { type: Boolean, default: false }
 });
 
 export default mongoose.model("User", UserSchema);

@@ -3,15 +3,49 @@
 import { useEffect, useState } from "react";
 import DataTable from "@/components/DataTable";
 import NewUser from "./NewUser";
+import EditUser from "./EditUser";
+import ConfirmModal from "@/components/ConfirmModal";
 import { apiClient } from "@/services/apiClient";
+import { showError, showSuccess } from "@/services/toast";
+import { useAuthStore } from "@/store/authStore";
 
 export default function UsersPage() {
   const [users, setUsers] = useState([]);
   const [open, setOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const token = useAuthStore((s) => s.token);
 
   const fetchUsers = async () => {
-    const data = await apiClient.get("/auth/users");
-    setUsers(data);
+    try {
+      const data = await apiClient.get("/auth/users");
+      setUsers(data);
+    } catch (err: any) {
+      showError(err.message);
+    }
+  };
+
+  const handleEdit = (user: any) => {
+    setSelectedUser(user);
+    setEditOpen(true);
+  };
+
+  const handleDelete = (user: any) => {
+    setSelectedUser(user);
+    setConfirmOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!selectedUser) return;
+    try {
+      await apiClient.delete(`/auth/users/${(selectedUser as any)._id}`, { headers: { Authorization: `Bearer ${token}` } });
+      showSuccess("User deleted successfully!");
+      fetchUsers();
+      setConfirmOpen(false);
+    } catch (err: any) {
+      showError(err.message);
+    }
   };
 
   useEffect(() => {
@@ -36,12 +70,24 @@ export default function UsersPage() {
           { key: "name", label: "Name" },
           { key: "email", label: "Email" },
           { key: "role", label: "Role" },
-          { key: "branchId", label: "Branch" },
+          { key: "branchName", label: "Branch" },
         ]}
         data={users}
+        actions={[
+          { label: "Edit", onClick: handleEdit, className: "bg-yellow-500 text-white" },
+          { label: "Delete", onClick: handleDelete, className: "bg-red-500 text-white" },
+        ]}
       />
 
       <NewUser open={open} onClose={() => setOpen(false)} onSuccess={fetchUsers} />
+      <EditUser open={editOpen} onClose={() => setEditOpen(false)} onSuccess={fetchUsers} user={selectedUser} />
+      <ConfirmModal
+        open={confirmOpen}
+        onClose={() => setConfirmOpen(false)}
+        onConfirm={confirmDelete}
+        title="Delete User"
+        message="Are you sure you want to delete this user? This action cannot be undone."
+      />
     </div>
   );
 }

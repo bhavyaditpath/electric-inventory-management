@@ -13,10 +13,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   if (!isAdmin()) redirect("/login");
 
   return (
-    <div className="flex">
+    <div className="flex min-h-screen bg-slate-50">
       <Sidebar />
-      <main className="min-h-screen flex-1 bg-gray-100 p-6 ml-20 lg:ml-64 transition-all">
-        {children}
+      <main className="flex-1 ml-20 lg:ml-64 transition-all duration-300 p-8">
+        <div className="max-w-7xl mx-auto">
+          {children}
+        </div>
       </main>
     </div>
   );
