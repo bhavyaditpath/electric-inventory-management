@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import DataTable from "@/components/DataTable";
 import Modal from "@/components/Modal";
 import ConfirmModal from "@/components/ConfirmModal";
@@ -19,8 +20,11 @@ interface ItemFormData {
 }
 
 export default function ItemsPage() {
+  const searchParams = useSearchParams();
   const [items, setItems] = useState<Item[]>([]);
+  const [filteredItems, setFilteredItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
   const [modalOpen, setModalOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<Item | null>(null);
@@ -38,6 +42,7 @@ export default function ItemsPage() {
     try {
       const data = await getItems(token!);
       setItems(data);
+      setFilteredItems(data);
     } catch (err: any) {
       showError("Failed to load items");
     } finally {
@@ -48,6 +53,17 @@ export default function ItemsPage() {
   useEffect(() => {
     fetchItems();
   }, [token]);
+
+  useEffect(() => {
+    if (searchQuery) {
+      const filtered = items.filter(item =>
+        item.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredItems(filtered);
+    } else {
+      setFilteredItems(items);
+    }
+  }, [searchQuery, items]);
 
   const resetForm = () => {
     setFormData({
@@ -159,6 +175,7 @@ export default function ItemsPage() {
         </button>
       </div>
 
+
       <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
         <DataTable
           columns={[
@@ -187,7 +204,7 @@ export default function ItemsPage() {
               }
             },
           ]}
-          data={items}
+          data={filteredItems}
           actions={[
             {
               label: "Edit",

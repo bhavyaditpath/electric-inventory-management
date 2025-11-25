@@ -15,10 +15,17 @@ import {
   LogOut,
   Menu,
   Building,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { useState } from "react";
 import { useAuthStore } from "@/store/authStore";
 import { NAVIGATION } from "@/app/Constants/navigation.constants";
+
+interface SidebarProps {
+  isOpen: boolean;
+  onToggle: () => void;
+}
 
 const menuItems = [
   { label: "Dashboard", href: NAVIGATION.admin.dashboard, icon: LayoutDashboard },
@@ -33,12 +40,10 @@ const menuItems = [
   { label: "Users", href: NAVIGATION.admin.users, icon: Users },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
   const logout = useAuthStore((s) => s.logout);
-  const [isOpen, setIsOpen] = useState(true);
-
   const handleLogout = () => {
     logout();
     router.push(NAVIGATION.auth.login);
@@ -46,59 +51,83 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Toggle Button (Mobile) */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden p-3 fixed top-4 left-4 z-50 bg-white shadow rounded-md"
+      <div
+        className={`fixed left-0 top-0 h-full bg-slate-900 text-white transition-all duration-300 ease-in-out z-40 overflow-hidden ${
+          isOpen ? 'w-64' : 'w-20'
+        }`}
       >
-        <Menu size={24} />
-      </button>
+        <div className="flex flex-col h-full">
+          <div className={`flex items-center justify-between px-4 py-6 border-b border-slate-700 flex-shrink-0 ${isOpen ? 'gap-4' : 'justify-center'}`}>
+            <h1
+              className={`font-bold text-xl transition-opacity duration-200 ${
+                isOpen ? 'opacity-100' : 'opacity-0 w-0'
+              }`}
+            >
+              Dashboard
+            </h1>
+            <button
+              onClick={onToggle}
+              className="text-slate-300 hover:text-white hover:bg-slate-700 p-2 rounded-lg transition-all duration-200 flex-shrink-0 relative z-50"
+              title={isOpen ? 'Close sidebar' : 'Open sidebar'}
+            >
+              {isOpen ? (
+                <ChevronLeft className="w-5 h-5" />
+              ) : (
+                <ChevronRight className="w-5 h-5" />
+              )}
+            </button>
+          </div>
 
-      {/* Sidebar */}
-      <aside
-        className={`fixed top-0 left-0 h-screen bg-white shadow-md border-r transition-all duration-300 
-          ${isOpen ? "w-64" : "w-20"} 
-          hidden sm:block`}
-      >
-        <div className="p-6 border-b">
-          <h1
-            className={`text-2xl font-bold text-blue-600 transition-opacity duration-200 
-              ${isOpen ? "opacity-100" : "opacity-0"}`}
-          >
-            Admin Panel
-          </h1>
-        </div>
+          <nav className="flex-1 py-6 overflow-y-auto overflow-x-hidden">
+            <ul className="space-y-2 px-3">
+              {menuItems.map((item) => {
+                const Icon = item.icon;
+                const isActive = pathname === item.href;
 
-        <nav className="mt-4 space-y-1">
-          {menuItems.map((item) => {
-            const Icon = item.icon;
-            const active = pathname === item.href;
+                return (
+                  <li key={item.label}>
+                    <Link
+                      href={item.href}
+                      className={`w-full flex items-center gap-4 px-4 py-3 rounded-lg transition-all duration-200 flex-shrink-0 ${
+                        isActive
+                          ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/50'
+                          : 'text-slate-300 hover:bg-slate-800 hover:text-white hover:translate-x-1'
+                      }`}
+                    >
+                      <Icon className="w-5 h-5 flex-shrink-0" />
+                      <span
+                        className={`font-medium transition-opacity duration-200 whitespace-nowrap ${
+                          isOpen ? 'opacity-100' : 'opacity-0 w-0'
+                        }`}
+                      >
+                        {item.label}
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
 
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`flex items-center gap-3 px-4 py-3 rounded-lg mx-3 transition
-                  ${active ? "bg-blue-600 text-white" : "text-gray-700 hover:bg-blue-100"}
-                `}
+          <div className="border-t border-slate-700 p-3 flex-shrink-0">
+            <button
+              className={`w-full flex items-center gap-4 px-4 py-3 rounded-lg text-slate-300 hover:bg-red-600 hover:text-white transition-all duration-200 flex-shrink-0 ${
+                !isOpen && 'justify-center'
+              }`}
+            >
+              <LogOut className="w-5 h-5 flex-shrink-0" />
+              <span
+                className={`font-medium transition-opacity duration-200 whitespace-nowrap ${
+                  isOpen ? 'opacity-100' : 'opacity-0 w-0'
+                }`}
               >
-                <Icon size={20} />
-                {isOpen && <span className="text-sm font-medium">{item.label}</span>}
-              </Link>
-            );
-          })}
-        </nav>
-
-        <div className="absolute bottom-4 left-0 w-full px-4">
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-3 w-full px-4 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
-          >
-            <LogOut size={20} />
-            {isOpen && <span className="text-sm font-medium">Logout</span>}
-          </button>
+                Logout
+              </span>
+            </button>
+          </div>
         </div>
-      </aside>
+      </div>
+
     </>
   );
 }

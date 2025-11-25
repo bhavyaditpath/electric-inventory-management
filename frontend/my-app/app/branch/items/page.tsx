@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import DataTable from "@/components/DataTable";
 import { getItems } from "@/services/item.service";
 import { showError } from "@/services/toast";
@@ -8,14 +9,18 @@ import { useAuthStore } from "@/store/authStore";
 import { Item } from "@/types/api-types";
 
 export default function BranchItemsPage() {
+  const searchParams = useSearchParams();
   const [items, setItems] = useState<Item[]>([]);
+  const [filteredItems, setFilteredItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
   const token = useAuthStore((s) => s.token);
 
   const fetchItems = async () => {
     try {
       const data = await getItems(token!);
       setItems(data);
+      setFilteredItems(data);
     } catch (err: any) {
       showError("Failed to load items");
     } finally {
@@ -26,6 +31,17 @@ export default function BranchItemsPage() {
   useEffect(() => {
     fetchItems();
   }, [token]);
+
+  useEffect(() => {
+    if (searchQuery) {
+      const filtered = items.filter(item =>
+        item.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredItems(filtered);
+    } else {
+      setFilteredItems(items);
+    }
+  }, [searchQuery, items]);
 
   const getStockStatus = (item: Item) => {
     if (item.stock === 0) {
@@ -51,6 +67,7 @@ export default function BranchItemsPage() {
         <h1 className="text-3xl font-bold text-gray-900">Inventory Items</h1>
         <p className="text-gray-600 mt-2">View all available items and their stock levels</p>
       </div>
+
 
       <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
         <DataTable
@@ -88,7 +105,7 @@ export default function BranchItemsPage() {
               }
             },
           ]}
-          data={items}
+          data={filteredItems}
         />
       </div>
     </div>
