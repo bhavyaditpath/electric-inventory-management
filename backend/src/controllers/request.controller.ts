@@ -6,7 +6,7 @@ export const createRequest = async (req: any, res: Response) => {
   const { itemId, quantity } = req.body;
 
   const request = await RequestModel.create({
-    branchId: req.user.id,
+    branchId: req.user.branchId,
     itemId,
     quantity,
     status: "pending",
@@ -16,7 +16,7 @@ export const createRequest = async (req: any, res: Response) => {
 };
 
 export const getBranchRequests = async (req: any, res: Response) => {
-  const requests = await RequestModel.find({ branchId: req.user.id }).populate("itemId");
+  const requests = await RequestModel.find({ branchId: req.user.branchId }).populate("itemId");
   res.json(requests);
 };
 
