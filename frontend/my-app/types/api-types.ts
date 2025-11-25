@@ -1,11 +1,4 @@
-// src/types/api-types.ts
-
-export const UserRole = {
-  admin: "admin",
-  branch: "branch",
-} as const;
-
-export type UserRole = (typeof UserRole)[keyof typeof UserRole];
+import { UserRole } from "@/app/Constants/UserRole.Constants";
 
 export interface User {
   _id: string;

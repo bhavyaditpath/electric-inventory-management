@@ -1,6 +1,7 @@
 import { apiClient } from "./apiClient";
-import { AuthResponse, User, UserRole } from "../types/api-types";
+import { AuthResponse, User } from "../types/api-types";
 import { API_ENDPOINTS } from "../app/Constants/api.constants";
+import { UserRole } from "@/app/Constants/UserRole.Constants";
 
 export const loginService = (payload: {
   email: string;

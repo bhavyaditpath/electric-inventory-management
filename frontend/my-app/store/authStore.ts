@@ -1,5 +1,6 @@
 import { create } from "zustand";
-import { User, UserRole } from "../types/api-types";
+import { User } from "../types/api-types";
+import { UserRole } from "@/app/Constants/UserRole.Constants";
 
 interface AuthState {
   user: User | null;

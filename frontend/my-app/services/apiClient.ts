@@ -1,10 +1,9 @@
+import { API } from "./api";
 
 interface RequestOptions {
   headers?: Record<string, string>;
   token?: string;
 }
-
-export const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
 
 export const apiClient = {
   async request(method: string, path: string, body?: any, options: RequestOptions = {}) {

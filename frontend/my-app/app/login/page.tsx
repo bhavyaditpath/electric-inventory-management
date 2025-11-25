@@ -7,8 +7,8 @@ import { useAuthStore } from "@/store/authStore";
 import { motion } from "framer-motion";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { showError } from "@/services/toast";
-import { UserRole } from "@/types/api-types";
 import { NAVIGATION } from "@/app/Constants/navigation.constants";
+import { UserRole } from "../Constants/UserRole.Constants";
 
 export default function LoginPage() {
   const router = useRouter();
