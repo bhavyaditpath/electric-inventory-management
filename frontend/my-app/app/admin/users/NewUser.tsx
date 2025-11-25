@@ -2,11 +2,13 @@
 
 import InputField from "@/components/InputField";
 import Modal from "@/components/Modal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { registerUser } from "@/services/auth.service";
+import { getBranches } from "@/services/branch.service";
 import { useAuthStore } from "@/store/authStore";
 import { showSuccess, showError } from "@/services/toast";
 import { UserRole } from "@/app/Constants/UserRole.Constants";
+import { Branch } from "@/types/api-types";
 
 export default function NewUser({ open, onClose, onSuccess }: any) {
     const token = useAuthStore((s) => s.token);
@@ -14,9 +16,24 @@ export default function NewUser({ open, onClose, onSuccess }: any) {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [branchName, setBranchName] = useState("");
+    const [branchId, setBranchId] = useState("");
+    const [branches, setBranches] = useState<Branch[]>([]);
+
+    useEffect(() => {
+        const fetchBranches = async () => {
+            try {
+                const data = await getBranches(token!);
+                setBranches(data);
+            } catch (err: any) {
+                showError("Failed to load branches");
+            }
+        };
+        if (open) fetchBranches();
+    }, [token, open]);
 
     const createHandler = async () => {
+        const selectedBranch = branches.find(b => b._id === branchId);
+
         try {
             await registerUser(
                 {
@@ -24,7 +41,7 @@ export default function NewUser({ open, onClose, onSuccess }: any) {
                     email,
                     password,
                     role: UserRole.branch,
-                    branchName,
+                    branchName: selectedBranch?.name || "",
                 },
                 token!
             );
@@ -49,11 +66,24 @@ export default function NewUser({ open, onClose, onSuccess }: any) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
             />
-            <InputField
-                label="Branch Name"
-                value={branchName}
-                onChange={(e) => setBranchName(e.target.value)}
-            />
+            <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Branch
+                </label>
+                <select
+                    value={branchId}
+                    onChange={(e) => setBranchId(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    required
+                >
+                    <option value="">Select a branch...</option>
+                    {branches.map((branch) => (
+                        <option key={branch._id} value={branch._id}>
+                            {branch.name}
+                        </option>
+                    ))}
+                </select>
+            </div>
 
 
             <button

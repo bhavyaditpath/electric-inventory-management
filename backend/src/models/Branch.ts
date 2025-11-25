@@ -11,5 +11,5 @@ const BranchSchema = new Schema<IBranch>({
   address: String
 });
 
-export default mongoose.model(UserRole.branch, BranchSchema);
+export default mongoose.model("Branch", BranchSchema);
 

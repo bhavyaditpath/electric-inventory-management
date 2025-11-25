@@ -21,4 +21,7 @@ export const API_ROUTES = {
     base: "/",
     branch: "/branch",
   },
+  branches: {
+    base: "/",
+  },
 };

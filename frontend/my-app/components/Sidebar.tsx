@@ -14,6 +14,7 @@ import {
   ReceiptText,
   LogOut,
   Menu,
+  Building,
 } from "lucide-react";
 import { useState } from "react";
 import { useAuthStore } from "@/store/authStore";
@@ -28,6 +29,7 @@ const menuItems = [
   { label: "Add Purchase", href: NAVIGATION.admin.purchases, icon: PackagePlus },
   { label: "Purchase History", href: NAVIGATION.admin.purchaseHistory, icon: ReceiptText },
   { label: "Stock Requests", href: NAVIGATION.admin.requests, icon: ClipboardList },
+  { label: "Branches", href: NAVIGATION.admin.branches, icon: Building },
   { label: "Users", href: NAVIGATION.admin.users, icon: Users },
 ];
 

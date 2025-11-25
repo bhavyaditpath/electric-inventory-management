@@ -13,6 +13,7 @@ export const NAVIGATION = {
     purchases: "/admin/purchases",
     purchaseHistory: "/admin/purchase-history",
     requests: "/admin/requests",
+    branches: "/admin/branches",
     users: "/admin/users",
   },
   branch: {

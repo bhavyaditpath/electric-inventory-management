@@ -7,7 +7,15 @@ import itemRoutes from "./routes/item.routes";
 import salesRoutes from "./routes/sales.routes";
 import purchaseRoutes from "./routes/purchase.routes";
 import requestRoutes from "./routes/request.routes";
+import branchRoutes from "./routes/branch.routes";
 import { seedAdmin } from "./config/seedAdmin";
+// Import models to register them
+import "./models/User";
+import "./models/Item";
+import "./models/Branch";
+import "./models/Purchase";
+import "./models/Sales";
+import "./models/Request";
 
 dotenv.config();
 connectDB().then(seedAdmin);
@@ -21,6 +29,7 @@ app.use("/api/items", itemRoutes);
 app.use("/api/sales", salesRoutes);
 app.use("/api/purchases", purchaseRoutes);
 app.use("/api/requests", requestRoutes);
+app.use("/api/branches", branchRoutes);
 
 app.get("/", (_, res) => res.send("Electric Inventory API Running"));
 

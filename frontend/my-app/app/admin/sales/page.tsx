@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import InputField from "@/components/InputField";
 import { getItems } from "@/services/item.service";
 import { recordSale } from "@/services/sales.service";
+import { getBranches } from "@/services/branch.service";
 import { showSuccess, showError } from "@/services/toast";
 import { useAuthStore } from "@/store/authStore";
-import { Item } from "@/types/api-types";
+import { Item, Branch } from "@/types/api-types";
 
 interface CartItem {
   itemId: string;
@@ -17,23 +18,29 @@ interface CartItem {
 
 export default function RecordSalesPage() {
   const [items, setItems] = useState<Item[]>([]);
+  const [branches, setBranches] = useState<Branch[]>([]);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [selectedItemId, setSelectedItemId] = useState("");
+  const [selectedBranchId, setSelectedBranchId] = useState("");
   const [quantity, setQuantity] = useState("");
   const [loading, setLoading] = useState(false);
   const token = useAuthStore((s) => s.token);
   const user = useAuthStore((s) => s.user);
 
   useEffect(() => {
-    const fetchItems = async () => {
+    const fetchData = async () => {
       try {
-        const data = await getItems(token!);
-        setItems(data);
+        const [itemsData, branchesData] = await Promise.all([
+          getItems(token!),
+          getBranches(token!)
+        ]);
+        setItems(itemsData);
+        setBranches(branchesData);
       } catch (err: any) {
-        showError("Failed to load items");
+        showError("Failed to load data");
       }
     };
-    fetchItems();
+    fetchData();
   }, [token]);
 
   const addToCart = () => {
@@ -82,8 +89,8 @@ export default function RecordSalesPage() {
       return;
     }
 
-    if (!user?.branchId) {
-      showError("Branch information not found");
+    if (!selectedBranchId) {
+      showError("Please select a branch");
       return;
     }
 
@@ -96,7 +103,7 @@ export default function RecordSalesPage() {
 
       await recordSale(
         {
-          branchId: user.branchId,
+          branchId: selectedBranchId,
           itemsSold,
           totalAmount: getTotal(),
         },
@@ -105,6 +112,7 @@ export default function RecordSalesPage() {
 
       showSuccess("Sale recorded successfully!");
       setCart([]);
+      setSelectedBranchId("");
     } catch (err: any) {
       showError(err.message || "Failed to record sale");
     } finally {
@@ -125,6 +133,25 @@ export default function RecordSalesPage() {
           <h3 className="text-lg font-medium text-gray-900 mb-6">Add Items</h3>
 
           <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Select Branch
+              </label>
+              <select
+                value={selectedBranchId}
+                onChange={(e) => setSelectedBranchId(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                required
+              >
+                <option value="">Choose a branch...</option>
+                {branches.map((branch) => (
+                  <option key={branch._id} value={branch._id}>
+                    {branch.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Select Item

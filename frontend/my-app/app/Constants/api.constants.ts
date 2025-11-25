@@ -21,4 +21,7 @@ export const API_ENDPOINTS = {
     base: "/sales",
     branch: "/sales/branch",
   },
+  branches: {
+    base: "/branches",
+  },
 };
