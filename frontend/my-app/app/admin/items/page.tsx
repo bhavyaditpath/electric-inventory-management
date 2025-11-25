@@ -169,7 +169,7 @@ export default function ItemsPage() {
         </div>
         <button
           onClick={() => openModal()}
-          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+          className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-3 py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg"
         >
           + Add Item
         </button>
@@ -179,16 +179,18 @@ export default function ItemsPage() {
       <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
         <DataTable
           columns={[
-            { key: "name", label: "Name" },
-            { key: "unit", label: "Unit" },
-            { key: "stock", label: "Stock" },
+            { key: "name", label: "Name", sortable: true },
+            { key: "unit", label: "Unit", sortable: true },
+            { key: "stock", label: "Stock", sortable: true },
             {
               key: "lowStockLevel",
-              label: "Low Stock Level"
+              label: "Low Stock Level",
+              sortable: true
             },
             {
               key: "price",
               label: "Price",
+              sortable: true,
               render: (value: number) => `$${value?.toFixed(2)}`
             },
             {
@@ -272,13 +274,13 @@ export default function ItemsPage() {
             <button
               type="button"
               onClick={closeModal}
-              className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+              className="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-medium transition-all duration-200"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              className="px-3 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg"
             >
               {editingItem ? "Update" : "Create"} Item
             </button>

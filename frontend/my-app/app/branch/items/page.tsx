@@ -72,16 +72,18 @@ export default function BranchItemsPage() {
       <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
         <DataTable
           columns={[
-            { key: "name", label: "Item Name" },
-            { key: "unit", label: "Unit" },
+            { key: "name", label: "Item Name", sortable: true },
+            { key: "unit", label: "Unit", sortable: true },
             {
               key: "price",
               label: "Price",
+              sortable: true,
               render: (value: number) => `$${value?.toFixed(2)}`
             },
             {
               key: "stock",
               label: "Current Stock",
+              sortable: true,
               render: (value: number, row: Item) => (
                 <span className={value <= row.lowStockLevel ? "text-orange-600 font-semibold" : ""}>
                   {value}
@@ -90,7 +92,8 @@ export default function BranchItemsPage() {
             },
             {
               key: "lowStockLevel",
-              label: "Low Stock Alert"
+              label: "Low Stock Alert",
+              sortable: true
             },
             {
               key: "stockStatus",

@@ -53,13 +53,16 @@ export default function UsersPage() {
   }, []);
 
   return (
-    <div>
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">Users</h1>
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+       <div>
+          <h1 className="text-3xl font-bold text-gray-900">User Management</h1>
+          <p className="text-gray-600 mt-2">Manage your users and their permissions</p>
+        </div>
 
         <button
           onClick={() => setOpen(true)}
-          className="bg-blue-600 text-white px-4 py-2 rounded-md"
+          className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-3 py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg"
         >
           + New User
         </button>
@@ -67,13 +70,14 @@ export default function UsersPage() {
 
       <DataTable
         columns={[
-          { key: "name", label: "Name" },
-          { key: "email", label: "Email" },
-          { key: "role", label: "Role" },
+          { key: "name", label: "Name", sortable: true },
+          { key: "email", label: "Email", sortable: true },
+          { key: "role", label: "Role", sortable: true },
           {
             key: "branchId",
             label: "Branch",
-            render: (value: any) => value?.name 
+            sortable: true,
+            render: (value: any) => value?.name
           },
         ]}
         data={users}
