@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import User from "../models/User";
+import Branch from "../models/Branch";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateToken";
 
@@ -22,7 +23,7 @@ export const login = async (req: Request, res: Response) => {
 };
 
 export const register = async (req: Request, res: Response) => {
-  const { name, email, password, role, branchName } = req.body;
+  const { name, email, password, role, branchId } = req.body;
 
   const exists = await User.findOne({ email });
   if (exists) return res.status(400).json({ message: "Email already exists" });
@@ -34,25 +35,28 @@ export const register = async (req: Request, res: Response) => {
     email,
     password: hashed,
     role,
-    branchName: branchName || null,
+    branchId: branchId || null,
   });
+
+  // Populate branch data for response
+  const populatedUser = await User.findById(user._id).select('-password').populate('branchId', 'name');
 
   res.json({
     message: "User created",
-    user,
+    user: populatedUser,
   });
 };
 
 export const getUsers = async (req: Request, res: Response) => {
-  const users = await User.find({ isDeleted: false }).select('-password');
+  const users = await User.find({ isDeleted: false }).select('-password').populate('branchId', 'name');
   res.json(users);
 };
 
 export const updateUser = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { name, email, role, branchName } = req.body;
+  const { name, email, role, branchId } = req.body;
 
-  const user = await User.findByIdAndUpdate(id, { name, email, role, branchName }, { new: true }).select('-password');
+  const user = await User.findByIdAndUpdate(id, { name, email, role, branchId }, { new: true }).select('-password').populate('branchId', 'name');
   if (!user) return res.status(404).json({ message: "User not found" });
 
   res.json({ message: "User updated", user });

@@ -32,8 +32,6 @@ export default function NewUser({ open, onClose, onSuccess }: any) {
     }, [token, open]);
 
     const createHandler = async () => {
-        const selectedBranch = branches.find(b => b._id === branchId);
-
         try {
             await registerUser(
                 {
@@ -41,7 +39,7 @@ export default function NewUser({ open, onClose, onSuccess }: any) {
                     email,
                     password,
                     role: UserRole.branch,
-                    branchName: selectedBranch?.name || "",
+                    branchId,
                 },
                 token!
             );

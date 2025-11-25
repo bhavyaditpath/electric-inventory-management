@@ -63,7 +63,7 @@ export default function BranchSidebar() {
         <nav className="mt-4 space-y-1">
           {menuItems.map((item) => {
             const Icon = item.icon;
-            const active = pathname.startsWith(item.href);
+            const active = pathname === item.href;
 
             return (
               <Link

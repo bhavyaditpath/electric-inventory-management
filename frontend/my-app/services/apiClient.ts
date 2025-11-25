@@ -22,8 +22,13 @@ export const apiClient = {
     });
 
     if (!res.ok) {
-      const error = await res.text();
-      throw new Error(error);
+      const text = await res.text(); // always works
+
+      let message = text;
+      const parsed = JSON.parse(text);
+      message = parsed.message;
+
+      throw new Error(message);
     }
 
     return res.json();

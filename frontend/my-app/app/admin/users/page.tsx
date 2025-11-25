@@ -70,12 +70,16 @@ export default function UsersPage() {
           { key: "name", label: "Name" },
           { key: "email", label: "Email" },
           { key: "role", label: "Role" },
-          { key: "branchName", label: "Branch" },
+          {
+            key: "branchId",
+            label: "Branch",
+            render: (value: any) => value?.name 
+          },
         ]}
         data={users}
         actions={[
-          { label: "Edit", onClick: handleEdit, className: "bg-yellow-500 text-white" },
-          { label: "Delete", onClick: handleDelete, className: "bg-red-500 text-white" },
+          { label: "Edit", onClick: handleEdit, className: "bg-yellow-500 text-white hover:bg-yellow-600" },
+          { label: "Delete", onClick: handleDelete, className: "bg-red-500 text-white hover:bg-red-600" },
         ]}
       />
 

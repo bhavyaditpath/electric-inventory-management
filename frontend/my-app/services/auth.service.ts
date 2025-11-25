@@ -14,7 +14,7 @@ export const registerUser = (
     email: string;
     password: string;
     role: UserRole;
-    branchName?: string;
+    branchId?: string;
   },
   token: string
 ) =>
