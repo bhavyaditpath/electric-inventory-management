@@ -54,8 +54,7 @@ export default function NewUser({ open, onClose, onSuccess }: any) {
 
     return (
         <Modal open={open} onClose={onClose}>
-            <h2 className="text-xl font-semibold mb-4">Create Branch User</h2>
-
+            <h2 className="text-xl font-bold text-gray-900 mb-4">Create Branch User</h2>
             <InputField label="Name" value={name} onChange={(e) => setName(e.target.value)} />
             <InputField label="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
             <InputField
@@ -86,7 +85,7 @@ export default function NewUser({ open, onClose, onSuccess }: any) {
 
             <button
                 onClick={createHandler}
-                className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg mt-6"
+                className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg cursor-pointer mt-6"
             >
                 Create User
             </button>

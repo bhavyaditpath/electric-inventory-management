@@ -108,7 +108,7 @@ export default function BranchDashboard() {
             <button className="p-3 bg-green-50 hover:bg-green-100 rounded-lg text-green-700 font-medium transition-colors text-left">
               Request Stock
             </button>
-            <button className="p-3 bg-blue-50 hover:bg-blue-100 rounded-lg text-blue-700 font-medium transition-all duration-200 border border-blue-200 text-left">
+            <button className="p-3 bg-blue-50 hover:bg-blue-100 rounded-lg text-blue-700 font-medium transition-all duration-200 border border-blue-200 cursor-pointer text-left">
               View Inventory
             </button>
             <button className="p-3 bg-purple-50 hover:bg-purple-100 rounded-lg text-purple-700 font-medium transition-colors text-left">

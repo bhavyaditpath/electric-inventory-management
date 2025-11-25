@@ -128,34 +128,34 @@ export const seedAllData = async () => {
         name: "Admin User",
         email: "admin12@yopmail.com",
         password: hashedPassword,
-        role: "admin"
+        role: "Admin"
       },
       {
         name: "John Smith",
         email: "john@electric.com",
         password: hashedPassword,
-        role: "branch",
+        role: "Branch",
         branchId: branches[0]._id
       },
       {
         name: "Sarah Johnson",
         email: "sarah@electric.com",
         password: hashedPassword,
-        role: "branch",
+        role: "Branch",
         branchId: branches[1]._id
       },
       {
         name: "Mike Davis",
         email: "mike@electric.com",
         password: hashedPassword,
-        role: "branch",
+        role: "Branch",
         branchId: branches[2]._id
       },
       {
         name: "Lisa Brown",
         email: "lisa@electric.com",
         password: hashedPassword,
-        role: "branch",
+        role: "Branch",
         branchId: branches[3]._id
       }
     ]);

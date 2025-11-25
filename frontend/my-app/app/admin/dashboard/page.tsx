@@ -111,13 +111,13 @@ export default function AdminDashboard() {
         <div className="bg-white rounded-lg shadow-sm border p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
           <div className="grid grid-cols-2 gap-3">
-            <button className="p-3 bg-blue-50 hover:bg-blue-100 rounded-lg text-blue-700 font-medium transition-all duration-200 border border-blue-200">
+            <button className="p-3 bg-blue-50 hover:bg-blue-100 rounded-lg text-blue-700 font-medium transition-all duration-200 border border-blue-200 cursor-pointer">
               Add New Item
             </button>
             <button className="p-3 bg-green-50 hover:bg-green-100 rounded-lg text-green-700 font-medium transition-colors">
               Record Sale
             </button>
-            <button className="p-3 bg-purple-50 hover:bg-purple-100 rounded-lg text-purple-700 font-medium transition-all duration-200 border border-purple-200">
+            <button className="p-3 bg-purple-50 hover:bg-purple-100 rounded-lg text-purple-700 font-medium transition-all duration-200 border border-purple-200 cursor-pointer">
               View Reports
             </button>
             <button className="p-3 bg-orange-50 hover:bg-orange-100 rounded-lg text-orange-700 font-medium transition-colors">

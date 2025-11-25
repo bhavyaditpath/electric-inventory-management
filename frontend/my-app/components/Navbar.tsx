@@ -59,7 +59,7 @@ export default function Navbar({ sidebarOpen }: NavbarProps) {
         </div>
 
         <div className="flex items-center gap-4 ml-6">
-          <button className="relative p-2 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200">
+          <button className="relative p-2 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 cursor-pointer">
             <Bell className="w-5 h-5" />
             <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
           </button>
@@ -67,7 +67,7 @@ export default function Navbar({ sidebarOpen }: NavbarProps) {
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="flex items-center gap-3 pl-4 border-l border-slate-200 hover:bg-slate-50 rounded-lg p-2 transition-all duration-200"
+              className="flex items-center gap-3 pl-4 border-l border-slate-200 hover:bg-slate-50 rounded-lg p-2 transition-all duration-200 cursor-pointer"
             >
               <div className="text-right">
                 <p className="text-sm font-semibold text-slate-800">{user?.name || 'User'}</p>
@@ -80,10 +80,10 @@ export default function Navbar({ sidebarOpen }: NavbarProps) {
             </button>
 
             {dropdownOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-slate-200 py-1 z-50">
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-slate-200 py-1 z-50 cursor-pointer">
                 <button
                   onClick={handleLogout}
-                  className="w-full flex items-center gap-3 px-4 py-2 text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-all duration-200"
+                  className="w-full flex items-center gap-3 px-4 py-2 text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-all duration-200 cursor-pointer"
                 >
                   <LogOut className="w-4 h-4" />
                   <span>Logout</span>

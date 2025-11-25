@@ -6,6 +6,7 @@ import { getLowStockItems } from "@/services/item.service";
 import { showError } from "@/services/toast";
 import { useAuthStore } from "@/store/authStore";
 import { Item } from "@/types/api-types";
+import { PackagePlus } from "lucide-react";
 
 export default function LowStockPage() {
   const [items, setItems] = useState<Item[]>([]);
@@ -153,7 +154,8 @@ export default function LowStockPage() {
                 // Could open a restock modal or navigate to purchases
                 showError("Restock functionality coming soon");
               },
-              className: "bg-green-100 text-green-800 hover:bg-green-200"
+              className: "bg-green-100 text-green-800 hover:bg-green-200",
+              icon: <PackagePlus className="w-4 h-4" />
             }
           ]}
         />

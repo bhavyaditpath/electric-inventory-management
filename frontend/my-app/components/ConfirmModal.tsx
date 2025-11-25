@@ -13,7 +13,7 @@ interface ConfirmModalProps {
 export default function ConfirmModal({ open, onClose, onConfirm, title, message }: ConfirmModalProps) {
   return (
     <Modal open={open} onClose={onClose}>
-      <h2 className="text-xl font-semibold mb-4">{title}</h2>
+      <h2 className="text-xl font-bold text-gray-900 mb-4">{title}</h2>
       <p className="mb-4">{message}</p>
       <div className="flex justify-end space-x-2">
         <button

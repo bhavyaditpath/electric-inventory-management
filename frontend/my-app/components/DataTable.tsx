@@ -131,7 +131,7 @@ export default function DataTable({ columns, data, actions, itemsPerPage = 10, s
                             <button
                               key={j}
                               onClick={() => action.onClick(row)}
-                              className={`inline-flex items-center justify-center w-10 h-10 rounded-lg text-sm font-medium transition-all duration-200 ${action.className || 'bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200'}`}
+                              className={`inline-flex items-center justify-center w-10 h-10 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer ${action.className || 'bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200'}`}
                               title={action.label}
                             >
                               {action.icon || (
@@ -191,7 +191,7 @@ export default function DataTable({ columns, data, actions, itemsPerPage = 10, s
                 <button
                   onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}
-                  className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <ChevronLeft className="w-5 h-5" />
                 </button>
@@ -203,7 +203,7 @@ export default function DataTable({ columns, data, actions, itemsPerPage = 10, s
                     <button
                       key={pageNumber}
                       onClick={() => setCurrentPage(pageNumber)}
-                      className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
+                      className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium cursor-pointer ${
                         currentPage === pageNumber
                           ? 'z-10 bg-blue-50 border-blue-500 text-blue-600'
                           : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
@@ -216,7 +216,7 @@ export default function DataTable({ columns, data, actions, itemsPerPage = 10, s
                 <button
                   onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                   disabled={currentPage === totalPages}
-                  className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <ChevronRight className="w-5 h-5" />
                 </button>

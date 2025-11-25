@@ -67,7 +67,7 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
             </h1>
             <button
               onClick={onToggle}
-              className="text-slate-300 hover:text-white hover:bg-slate-700 p-2 rounded-lg transition-all duration-200 flex-shrink-0 relative z-50"
+              className="text-slate-300 hover:text-white hover:bg-slate-700 p-2 rounded-lg transition-all duration-200 flex-shrink-0 relative z-50 cursor-pointer"
               title={isOpen ? 'Close sidebar' : 'Open sidebar'}
             >
               {isOpen ? (
@@ -111,7 +111,7 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
 
           <div className="border-t border-slate-700 p-3 flex-shrink-0">
             <button
-              className={`w-full flex items-center gap-4 px-4 py-3 rounded-lg text-slate-300 hover:bg-red-600 hover:text-white transition-all duration-200 flex-shrink-0 ${
+              className={`w-full flex items-center gap-4 px-4 py-3 rounded-lg text-slate-300 hover:bg-red-600 hover:text-white transition-all duration-200 flex-shrink-0 cursor-pointer ${
                 !isOpen && 'justify-center'
               }`}
             >

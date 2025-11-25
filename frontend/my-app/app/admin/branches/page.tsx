@@ -128,7 +128,7 @@ export default function BranchesPage() {
         </div>
         <button
           onClick={() => openModal()}
-          className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-3 py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg"
+          className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-3 py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg cursor-pointer"
         >
           + Add Branch
         </button>
@@ -167,7 +167,7 @@ export default function BranchesPage() {
 
       {/* Add/Edit Modal */}
       <Modal open={modalOpen} onClose={closeModal}>
-        <h2 className="text-xl font-semibold mb-4">
+        <h2 className="text-xl font-bold text-gray-900 mb-4">
           {editingBranch ? "Edit Branch" : "Add New Branch"}
         </h2>
 
@@ -195,7 +195,7 @@ export default function BranchesPage() {
             </button>
             <button
               type="submit"
-              className="px-3 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg"
+              className="px-3 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg cursor-pointer"
             >
               {editingBranch ? "Update" : "Create"} Branch
             </button>

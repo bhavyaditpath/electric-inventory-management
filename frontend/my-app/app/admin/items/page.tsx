@@ -169,7 +169,7 @@ export default function ItemsPage() {
         </div>
         <button
           onClick={() => openModal()}
-          className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-3 py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg"
+          className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-3 py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg cursor-pointer"
         >
           + Add Item
         </button>
@@ -224,7 +224,7 @@ export default function ItemsPage() {
 
       {/* Add/Edit Modal */}
       <Modal open={modalOpen} onClose={closeModal}>
-        <h2 className="text-xl font-semibold mb-4">
+        <h2 className="text-xl font-bold text-gray-900 mb-4">
           {editingItem ? "Edit Item" : "Add New Item"}
         </h2>
 
@@ -280,7 +280,7 @@ export default function ItemsPage() {
             </button>
             <button
               type="submit"
-              className="px-3 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg"
+              className="px-3 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg cursor-pointer"
             >
               {editingItem ? "Update" : "Create"} Item
             </button>
