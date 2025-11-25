@@ -7,6 +7,8 @@ import { useAuthStore } from "@/store/authStore";
 import { motion } from "framer-motion";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { showError } from "@/services/toast";
+import { UserRole } from "@/types/api-types";
+import { NAVIGATION } from "@/app/Constants/navigation.constants";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -28,8 +30,8 @@ export default function LoginPage() {
       const res = await loginService({ email, password });
       login(res.user, res.token);
 
-      if (res.user.role === "admin") router.push("/admin/dashboard");
-      else router.push("/branch/dashboard");
+      if (res.user.role === UserRole.admin) router.push(NAVIGATION.admin.dashboard);
+      else router.push(NAVIGATION.branch.dashboard);
     } catch (err: any) {
       showError(err.message || "Invalid email or password");
     } finally {

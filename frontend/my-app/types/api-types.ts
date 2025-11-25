@@ -1,6 +1,11 @@
 // src/types/api-types.ts
 
-export type UserRole = "admin" | "branch";
+export const UserRole = {
+  admin: "admin",
+  branch: "branch",
+} as const;
+
+export type UserRole = (typeof UserRole)[keyof typeof UserRole];
 
 export interface User {
   _id: string;

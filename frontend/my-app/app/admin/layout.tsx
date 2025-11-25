@@ -4,13 +4,14 @@ import Sidebar from "@/components/Sidebar";
 import { useAuthInit } from "@/hooks/useAuthInit";
 import { useAuthStore } from "@/store/authStore";
 import { redirect } from "next/navigation";
+import { NAVIGATION } from "@/app/Constants/navigation.constants";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   useAuthInit();
   const { user, isAdmin } = useAuthStore();
 
   if (!user) return <p className="p-6">Loading...</p>;
-  if (!isAdmin()) redirect("/login");
+  if (!isAdmin()) redirect(NAVIGATION.auth.login);
 
   return (
     <div className="flex min-h-screen bg-slate-50">

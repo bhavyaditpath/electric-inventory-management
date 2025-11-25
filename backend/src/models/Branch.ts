@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
+import { UserRole } from "../constants/userRole";
 
 export interface IBranch extends Document {
   name: string;
@@ -10,4 +11,5 @@ const BranchSchema = new Schema<IBranch>({
   address: String
 });
 
-export default mongoose.model("Branch", BranchSchema);
+export default mongoose.model(UserRole.branch, BranchSchema);
+

@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { User } from "../types/api-types";
+import { User, UserRole } from "../types/api-types";
 
 interface AuthState {
   user: User | null;
@@ -26,6 +26,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     set({ user: null, token: null });
   },
 
-  isAdmin: () => get().user?.role === "admin",
-  isBranchUser: () => get().user?.role === "branch"
+  isAdmin: () => get().user?.role === UserRole.admin,
+  isBranchUser: () => get().user?.role === UserRole.branch
 }));

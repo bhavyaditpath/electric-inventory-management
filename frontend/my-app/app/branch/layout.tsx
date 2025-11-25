@@ -4,13 +4,14 @@ import BranchSidebar from "@/components/BranchSidebar";
 import { useAuthInit } from "@/hooks/useAuthInit";
 import { useAuthStore } from "@/store/authStore";
 import { redirect } from "next/navigation";
+import { NAVIGATION } from "@/app/Constants/navigation.constants";
 
 export default function BranchLayout({ children }: { children: React.ReactNode }) {
   useAuthInit();
   const { user, isBranchUser } = useAuthStore();
 
   if (!user) return <p className="p-6">Loading...</p>;
-  if (!isBranchUser()) redirect("/login");
+  if (!isBranchUser()) redirect(NAVIGATION.auth.login);
 
   return (
     <div className="flex min-h-screen bg-slate-50">

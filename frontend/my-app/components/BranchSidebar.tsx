@@ -13,14 +13,15 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useAuthStore } from "@/store/authStore";
+import { NAVIGATION } from "@/app/Constants/navigation.constants";
 
 const menuItems = [
-  { label: "Dashboard", href: "/branch/dashboard", icon: LayoutDashboard },
-  { label: "Items", href: "/branch/items", icon: Box },
-  { label: "Record Sales", href: "/branch/sales", icon: ShoppingBag },
-  { label: "Sales History", href: "/branch/sales-history", icon: History },
-  { label: "Request Stock", href: "/branch/request", icon: ClipboardList },
-  { label: "My Requests", href: "/branch/my-requests", icon: ClipboardList },
+  { label: "Dashboard", href: NAVIGATION.branch.dashboard, icon: LayoutDashboard },
+  { label: "Items", href: NAVIGATION.branch.items, icon: Box },
+  { label: "Record Sales", href: NAVIGATION.branch.sales, icon: ShoppingBag },
+  { label: "Sales History", href: NAVIGATION.branch.salesHistory, icon: History },
+  { label: "Request Stock", href: NAVIGATION.branch.request, icon: ClipboardList },
+  { label: "My Requests", href: NAVIGATION.branch.myRequests, icon: ClipboardList },
 ];
 
 export default function BranchSidebar() {
@@ -31,7 +32,7 @@ export default function BranchSidebar() {
 
   const handleLogout = () => {
     logout();
-    router.push("/login");
+    router.push(NAVIGATION.auth.login);
   };
 
   return (

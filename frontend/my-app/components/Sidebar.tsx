@@ -17,17 +17,18 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useAuthStore } from "@/store/authStore";
+import { NAVIGATION } from "@/app/Constants/navigation.constants";
 
 const menuItems = [
-  { label: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
-  { label: "Items", href: "/admin/items", icon: Box },
-  { label: "Low Stock Alerts", href: "/admin/low-stock", icon: AlertTriangle },
-  { label: "Record Sales", href: "/admin/sales", icon: ShoppingBag },
-  { label: "Sales History", href: "/admin/sales-history", icon: History },
-  { label: "Add Purchase", href: "/admin/purchases", icon: PackagePlus },
-  { label: "Purchase History", href: "/admin/purchase-history", icon: ReceiptText },
-  { label: "Stock Requests", href: "/admin/requests", icon: ClipboardList },
-  { label: "Users", href: "/admin/users", icon: Users },
+  { label: "Dashboard", href: NAVIGATION.admin.dashboard, icon: LayoutDashboard },
+  { label: "Items", href: NAVIGATION.admin.items, icon: Box },
+  { label: "Low Stock Alerts", href: NAVIGATION.admin.lowStock, icon: AlertTriangle },
+  { label: "Record Sales", href: NAVIGATION.admin.sales, icon: ShoppingBag },
+  { label: "Sales History", href: NAVIGATION.admin.salesHistory, icon: History },
+  { label: "Add Purchase", href: NAVIGATION.admin.purchases, icon: PackagePlus },
+  { label: "Purchase History", href: NAVIGATION.admin.purchaseHistory, icon: ReceiptText },
+  { label: "Stock Requests", href: NAVIGATION.admin.requests, icon: ClipboardList },
+  { label: "Users", href: NAVIGATION.admin.users, icon: Users },
 ];
 
 export default function Sidebar() {
@@ -38,7 +39,7 @@ export default function Sidebar() {
 
   const handleLogout = () => {
     logout();
-    router.push("/login");
+    router.push(NAVIGATION.auth.login);
   };
 
   return (

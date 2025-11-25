@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { apiClient } from "@/services/apiClient";
 import { useAuthStore } from "@/store/authStore";
 import { showSuccess, showError } from "@/services/toast";
+import { UserRole } from "@/types/api-types";
 
 export default function EditUser({ open, onClose, onSuccess, user }: any) {
     const token = useAuthStore((s) => s.token);
@@ -45,8 +46,8 @@ export default function EditUser({ open, onClose, onSuccess, user }: any) {
             <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700">Role</label>
                 <select value={role} onChange={(e) => setRole(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-                    <option value="branch">Branch</option>
-                    <option value="admin">Admin</option>
+                    <option value={UserRole.branch}>Branch</option>
+                    <option value={UserRole.admin}>Admin</option>
                 </select>
             </div>
             <InputField
