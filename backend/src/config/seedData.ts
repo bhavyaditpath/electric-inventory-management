@@ -126,7 +126,7 @@ export const seedAllData = async () => {
     const users = await User.create([
       {
         name: "Admin User",
-        email: "admin@electric.com",
+        email: "admin12@yopmail.com",
         password: hashedPassword,
         role: "admin"
       },
@@ -287,7 +287,7 @@ export const seedAllData = async () => {
     console.log(`   Requests: ${requests.length}`);
 
     console.log("\n🔐 Login Credentials:");
-    console.log("   Admin: admin@electric.com / password123");
+    console.log("   Admin: admin12@yopmail.com / password123");
     console.log("   Branch Users: [name]@electric.com / password123");
     console.log("   (John, Sarah, Mike, Lisa)");
 

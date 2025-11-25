@@ -8,6 +8,8 @@ export interface IUser extends Document {
   role: UserRoleType;
   branchId?: mongoose.Types.ObjectId;
   isDeleted: boolean;
+  resetToken?: string;
+  resetTokenExpiry?: Date;
 }
 
 const UserSchema = new Schema<IUser>({
@@ -21,6 +23,8 @@ const UserSchema = new Schema<IUser>({
   },
   branchId: { type: mongoose.Schema.Types.ObjectId, ref: 'Branch', default: null },
   isDeleted: { type: Boolean, default: false },
+  resetToken: String,
+  resetTokenExpiry: Date,
 });
 
 export default mongoose.model("User", UserSchema);

@@ -21,3 +21,12 @@ export const registerUser = (
   apiClient.post(API_ENDPOINTS.auth.register, payload, {
     token
   }) as Promise<{ message: string; user: User }>;
+
+export const forgotPasswordService = (payload: {
+  email: string;
+}) => apiClient.post(API_ENDPOINTS.auth.forgotPassword, payload) as Promise<{ message: string; resetToken?: string }>;
+
+export const resetPasswordService = (payload: {
+  token: string;
+  newPassword: string;
+}) => apiClient.post(API_ENDPOINTS.auth.resetPassword, payload) as Promise<{ message: string }>;

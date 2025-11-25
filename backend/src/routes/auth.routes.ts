@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { login, register, getUsers, updateUser, deleteUser } from "../controllers/auth.controller";
+import { login, register, getUsers, updateUser, deleteUser, forgotPassword, resetPassword } from "../controllers/auth.controller";
 import { protect } from "../middlewares/authMiddleware";
 import { authorize } from "../middlewares/roleMiddleware";
 import { UserRole } from "../constants/userRole";
@@ -9,6 +9,8 @@ const router = Router();
 
 // Public
 router.post(API_ROUTES.auth.login, login);
+router.post(API_ROUTES.auth.forgotPassword, forgotPassword);
+router.post(API_ROUTES.auth.resetPassword, resetPassword);
 
 // Admin can create users (branch users)
 router.post(API_ROUTES.auth.register, protect, authorize(UserRole.admin), register);

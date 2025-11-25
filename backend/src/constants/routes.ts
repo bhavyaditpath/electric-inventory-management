@@ -3,6 +3,8 @@ export const API_ROUTES = {
     login: "/login",
     register: "/register",
     users: "/users",
+    forgotPassword: "/forgot-password",
+    resetPassword: "/reset-password",
   },
   items: {
     base: "/",

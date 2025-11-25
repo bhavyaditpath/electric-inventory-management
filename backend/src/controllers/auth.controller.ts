@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import User from "../models/User";
 import Branch from "../models/Branch";
 import bcrypt from "bcryptjs";
+import crypto from "crypto";
 import { generateToken } from "../utils/generateToken";
 
 export const login = async (req: Request, res: Response) => {
@@ -69,4 +70,53 @@ export const deleteUser = async (req: Request, res: Response) => {
   if (!user) return res.status(404).json({ message: "User not found" });
 
   res.json({ message: "User deleted" });
+};
+
+export const forgotPassword = async (req: Request, res: Response) => {
+  const { email } = req.body;
+
+  const user = await User.findOne({ email, isDeleted: false });
+  if (!user) return res.status(404).json({ message: "User not found" });
+
+  // Generate reset token
+  const resetToken = crypto.randomBytes(32).toString('hex');
+  const resetTokenExpiry = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+
+  // Save reset token to user (in a real app, you'd hash this)
+  user.resetToken = resetToken;
+  user.resetTokenExpiry = resetTokenExpiry;
+  await user.save();
+
+  // In a real application, you would send an email here
+  // For demo purposes, we'll just return success
+  console.log(`Password reset token for ${email}: ${resetToken}`);
+
+  res.json({
+    message: "Password reset link sent to your email",
+    // In production, don't send the token in response
+    resetToken: process.env.NODE_ENV === 'development' ? resetToken : undefined
+  });
+};
+
+export const resetPassword = async (req: Request, res: Response) => {
+  const { token, newPassword } = req.body;
+
+  const user = await User.findOne({
+    resetToken: token,
+    resetTokenExpiry: { $gt: new Date() },
+    isDeleted: false
+  });
+
+  if (!user) return res.status(400).json({ message: "Invalid or expired reset token" });
+
+  // Hash new password
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+  // Update user
+  user.password = hashedPassword;
+  user.resetToken = undefined;
+  user.resetTokenExpiry = undefined;
+  await user.save();
+
+  res.json({ message: "Password reset successfully" });
 };
