@@ -29,6 +29,6 @@ export const getSalesByBranch = async (req: Request, res: Response) => {
 };
 
 export const getAllSales = async (req: Request, res: Response) => {
-  const sales = await Sales.find().populate("itemsSold.itemId");
+  const sales = await Sales.find().populate("itemsSold.itemId").populate("branchId");
   res.json(sales);
 };
